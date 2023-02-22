@@ -1,0 +1,6 @@
+{
+  "host": "hex.io",
+  "timeout": 60,
+  "proxy": "1.1.1.1",
+  "follow": true
+}
