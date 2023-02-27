@@ -12,16 +12,16 @@ public class Stylish {
         StringBuilder result = new StringBuilder("{\n");
         for (String key : keySet) {
             if (map1.containsKey(key) && !map2.containsKey(key)) {
-                result.append("- ").append(key).append(": ").append(map1.get(key)).append("\n");
+                result.append("  - ").append(key).append(": ").append(map1.get(key)).append("\n");
             } else if (!map1.containsKey(key) && map2.containsKey(key)) {
-                result.append("+ ").append(key).append(": ").append(map2.get(key)).append("\n");
+                result.append("  + ").append(key).append(": ").append(map2.get(key)).append("\n");
             } else if (map1.containsKey(key) && map2.containsKey(key)
                     && !Objects.equals(map1.get(key), map2.get(key))) {
-                result.append("- ").append(key).append(": ").append(map1.get(key)).append("\n");
-                result.append("+ ").append(key).append(": ").append(map2.get(key)).append("\n");
+                result.append("  - ").append(key).append(": ").append(map1.get(key)).append("\n");
+                result.append("  + ").append(key).append(": ").append(map2.get(key)).append("\n");
             } else if (map1.containsKey(key) && map2.containsKey(key)
                     && Objects.equals(map1.get(key), map2.get(key))) {
-                result.append("  ").append(key).append(": ").append(map1.get(key)).append("\n");
+                result.append("    ").append(key).append(": ").append(map1.get(key)).append("\n");
             }
         }
         result.append("}");
