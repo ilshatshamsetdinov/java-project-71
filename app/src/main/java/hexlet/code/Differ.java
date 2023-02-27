@@ -17,6 +17,9 @@ public class Differ {
         Map<String, Object> map2 = Parser.parser(content2, filePath2);
         return Formatter.formatStyle(format, map1, map2);
     }
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        return generate(filePath1, filePath2, "stylish");
+    }
 }
 
 
