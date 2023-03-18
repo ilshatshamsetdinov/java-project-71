@@ -1,48 +1,33 @@
 package hexlet.code.formatters;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.Objects;
-import java.util.Collections;
-import java.util.ArrayList;
+
 public class Plain {
-    public static String formatPlain(Map<String, Object> map1, Map<String, Object> map2) {
-        Set<String> keySet = new TreeSet<>();
-        keySet.addAll(map1.keySet());
-        keySet.addAll(map2.keySet());
+    public static String format(List<Map<String, Object>> differences) {
         StringBuilder result = new StringBuilder();
-        for (String key : keySet) {
-            if (map1.containsKey(key) && !map2.containsKey(key)) {
-                result.append("Property ").append("'").append(key).append("'")
-                        .append(" was removed").append("\n");
-            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
-                result.append("Property ").append(complexValue(key))
-                        .append(" was added with value: ")
-                        .append(complexValue(map2.get(key)))
-                        .append("\n");
-            } else if (map1.containsKey(key) && map2.containsKey(key)
-                    && !Objects.equals(map1.get(key), map2.get(key))) {
-                result.append("Property ").append(complexValue(key))
-                        .append(" was updated. From ")
-                        .append(complexValue(map1.get(key))).append(" to ")
-                        .append(complexValue(map2.get(key)))
-                        .append("\n");
-            } else {
-                result.append("");
+        for (Map<String, Object> diffs : differences) {
+            switch (diffs.get("status").toString()) {
+                case "removed" -> result.append(String.format("Property '%s' was removed\n", diffs.get("key")));
+                case "added" -> result.append(String.format("Property %s was added with value: %s\n",
+                        complexValue(diffs.get("key")),
+                        complexValue(diffs.get("newValue"))));
+                case "updated" -> result.append(String.format("Property %s was updated. From %s to %s\n",
+                        complexValue(diffs.get("key")), complexValue(diffs.get("oldValue")),
+                        complexValue(diffs.get("newValue"))));
+                default -> result.append("");
             }
         }
         return result.toString().trim();
-
     }
+
     public static String complexValue(Object data) {
-        if (data instanceof Object[] || data instanceof Collections || data instanceof Map
-                || data instanceof ArrayList<?>) {
-            return "[complex value]";
+        if (data == null) {
+            return "null";
         } else if (data instanceof String) {
             return "'" + data + "'";
-        } else if (data == null) {
-            return null;
+        } else if (data instanceof Integer || data instanceof Boolean) {
+            return String.valueOf(data);
         }
-        return data.toString();
+        return "[complex value]";
     }
 }

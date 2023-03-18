@@ -1,26 +1,34 @@
 package hexlet.code;
+import hexlet.code.formatters.Formatter;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
-        Path path1 = Paths.get(filePath1).toAbsolutePath().normalize();
-        Path path2 = Paths.get(filePath2).toAbsolutePath().normalize();
-        String content1 = Files.readString(path1);
-        String content2 = Files.readString(path2);
-        if (!Files.exists(path1) && !Files.exists(path2)) {
-            throw new Exception("File '" + path1 + path2 + "' does not exist");
-        }
-        Map<String, Object> map1 = Parser.parser(content1, filePath1);
-        Map<String, Object> map2 = Parser.parser(content2, filePath2);
-        return Formatter.formatStyle(format, map1, map2);
+        Map<String, Object> data1 = Parser.parser(retriveContent(filePath1), filePath1);
+        Map<String, Object> data2 = Parser.parser(retriveContent(filePath2), filePath2);
+        List<Map<String, Object>> result = GeneratedDifference.differ(data1, data2);
+        return Formatter.formatStyle(format, result);
     }
+
     public static String generate(String filePath1, String filePath2) throws Exception {
         return generate(filePath1, filePath2, "stylish");
     }
+
+    public static String retriveContent(String filePath) throws Exception {
+        Path path = Paths.get(filePath).toAbsolutePath().normalize();
+        String content = Files.readString(path);
+        if (!Files.exists(path)) {
+            throw new Exception("File '" + path + "' does not exist");
+        }
+        return content;
+    }
 }
+
 
 
 
