@@ -13,12 +13,12 @@ import java.nio.file.Paths;
 
 public class DifferTest {
 
-    String readExpectedFilePath1 = "src/test/resources/ExpectedForPlain";
-    Path path1 = Paths.get(readExpectedFilePath1).toAbsolutePath().normalize();
-    String readExpectedFilePath2 = "src/test/resources/ExpectedForStylish";
-    Path path2 = Paths.get(readExpectedFilePath2).toAbsolutePath().normalize();
-    String readExpectedFilePath3 = "src/test/resources/ExpectedForJson";
-    Path path3 = Paths.get(readExpectedFilePath3).toAbsolutePath().normalize();
+    private String readExpectedFilePath1 = "src/test/resources/ExpectedForPlain";
+    private Path path1 = Paths.get(readExpectedFilePath1).toAbsolutePath().normalize();
+    private String readExpectedFilePath2 = "src/test/resources/ExpectedForStylish";
+    private Path path2 = Paths.get(readExpectedFilePath2).toAbsolutePath().normalize();
+    private String readExpectedFilePath3 = "src/test/resources/ExpectedForJson";
+    private Path path3 = Paths.get(readExpectedFilePath3).toAbsolutePath().normalize();
 
 
 
