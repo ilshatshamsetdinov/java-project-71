@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
-        Map<String, Object> data1 = Parser.parser(retriveContent(filePath1), filePath1);
-        Map<String, Object> data2 = Parser.parser(retriveContent(filePath2), filePath2);
-        List<Map<String, Object>> result = GeneratedDifference.differ(data1, data2);
+        Map<String, Object> data1 = Parser.parse(retriveContent(filePath1), filePath1);
+        Map<String, Object> data2 = Parser.parse(retriveContent(filePath2), filePath2);
+        List<Map<String, Object>> result = DiffBuilder.differ(data1, data2);
         return Formatter.formatStyle(format, result);
     }
 

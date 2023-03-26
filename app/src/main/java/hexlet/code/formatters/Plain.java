@@ -14,7 +14,8 @@ public class Plain {
                 case "updated" -> result.append(String.format("Property %s was updated. From %s to %s\n",
                         complexValue(diffs.get("key")), complexValue(diffs.get("oldValue")),
                         complexValue(diffs.get("newValue"))));
-                default -> result.append("");
+                case "unchanged" -> result.append("");
+                default -> throw new RuntimeException();
             }
         }
         return result.toString().trim();

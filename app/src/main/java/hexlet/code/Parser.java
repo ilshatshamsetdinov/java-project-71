@@ -9,7 +9,8 @@ import java.util.Map;
 
 
 public class Parser {
-    public static Map<String, Object> parser(String content, String filePath) throws Exception {
+    public static Map<String, Object> parse(String content, String filePath) throws RuntimeException,
+            JsonProcessingException {
         String extension = filePath.substring(filePath.indexOf(".") + 1);
         switch (extension) {
             case "json" -> {
@@ -18,7 +19,7 @@ public class Parser {
             case "yaml", "yml" -> {
                 return parseYml(content);
             }
-            default -> throw new Exception("Unavailable  format");
+            default -> throw new RuntimeException();
         }
     }
 
